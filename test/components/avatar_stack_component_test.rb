@@ -14,7 +14,7 @@ class PrimerAvatarStackComponentTest < Minitest::Test
   end
 
   def test_renders_avatars
-    render_inline(Primer::AvatarStackComponent.new) do |c|
+    render_inline(Primer::AvatarStackComponent.new(count: 1)) do |c|
       c.body {}
       c.avatar(src: "foo", alt: "bar")
     end
