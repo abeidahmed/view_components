@@ -23,4 +23,24 @@ class PrimerAvatarStackComponentTest < Minitest::Test
       assert_selector("img.avatar[src=\"foo\"][alt=\"bar\"]")
     end
   end
+
+  def test_renders_component_class_based_on_avatar_count
+    render_inline(Primer::AvatarStackComponent.new(count: 2)) do |c|
+      c.body {}
+      c.avatar(src: "foo", alt: "bar")
+      c.avatar(src: "foo", alt: "bar")
+    end
+
+    assert_selector("div.AvatarStack.AvatarStack--two")
+
+    render_inline(Primer::AvatarStackComponent.new(count: 4)) do |c|
+      c.body {}
+      c.avatar(src: "foo", alt: "bar")
+      c.avatar(src: "foo", alt: "bar")
+      c.avatar(src: "foo", alt: "bar")
+      c.avatar(src: "foo", alt: "bar")
+    end
+
+    assert_selector("div.AvatarStack.AvatarStack--three-plus")
+  end
 end

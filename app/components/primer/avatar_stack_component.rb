@@ -7,12 +7,13 @@ module Primer
     renders_many :avatars, "Avatar"
     renders_one :body, "Body"
 
-    def initialize(**system_arguments)
+    def initialize(count: 0, **system_arguments)
+      @count = count
       @system_arguments = system_arguments
       @system_arguments[:tag] = :div
 
       @system_arguments[:classes] = class_names(
-        "AvatarStack",
+        stack_class,
         system_arguments[:classes],
       )
     end
@@ -44,6 +45,19 @@ module Primer
           "AvatarStack-body",
           system_arguments[:classes],
         )
+      end
+    end
+
+    private
+
+    def stack_class
+      case @count
+      when 1
+        "AvatarStack"
+      when 2
+        "AvatarStack AvatarStack--two"
+      when 3..Float::INFINITY
+        "AvatarStack AvatarStack--three-plus"
       end
     end
   end
