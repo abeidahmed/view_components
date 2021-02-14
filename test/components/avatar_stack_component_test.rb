@@ -55,4 +55,14 @@ class PrimerAvatarStackComponentTest < Minitest::Test
 
     assert_selector("div.avatar.avatar-more")
   end
+
+  def test_does_not_render_avatar_more_class
+    render_inline(Primer::AvatarStackComponent.new(count: 2)) do |c|
+      c.body {}
+      c.avatar(src: "foo", alt: "bar")
+      c.avatar(src: "foo", alt: "bar")
+    end
+
+    refute_selector("div.avatar.avatar-more")
+  end
 end
