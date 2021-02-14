@@ -1,6 +1,6 @@
 <%= render Primer::BaseComponent.new(**@system_arguments) do %>
   <% if body %>
-    <%= render Primer::BaseComponent.new(**body.system_arguments) do %>
+    <%= render body.component do %>
       <% if avatars.any? %>
         <% if avatars.size == 1 %>
           <% avatars.each do |avatar| %>

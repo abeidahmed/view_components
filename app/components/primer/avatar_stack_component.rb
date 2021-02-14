@@ -37,8 +37,6 @@ module Primer
     end
 
     class Body < Primer::Slot
-      attr_reader :system_arguments
-
       def initialize(**system_arguments)
         @system_arguments = system_arguments
         @system_arguments[:tag] = :div
@@ -47,6 +45,10 @@ module Primer
           "AvatarStack-body",
           system_arguments[:classes],
         )
+      end
+
+      def component
+        Primer::BaseComponent.new(**@system_arguments)
       end
     end
 
