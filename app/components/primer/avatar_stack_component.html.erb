@@ -2,9 +2,33 @@
   <% if body %>
     <%= render Primer::BaseComponent.new(**body.system_arguments) do %>
       <% if avatars.any? %>
-        <% avatars.each do |avatar| %>
-          <%= render Primer::AvatarComponent.new(**avatar.system_arguments) do %>
-            <%= avatar.content %>
+        <% if avatars.size == 1 %>
+          <% avatars.each do |avatar| %>
+            <%= render avatar.component do %>
+              <%= avatar.content %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <% [avatars.first, avatars.second].each do |avatar| %>
+            <%= render avatar.component do %>
+              avatar.content
+            <% end %>
+            <% if avatars.size >= 3 %>
+              <div class="avatar avatar-more"></div>
+              <% if avatars.size == 3 %>
+                <% [avatars.third].each do |avatar| %>
+                  <%= render avatar.component do %>
+                    <%= avatar.content %>
+                  <% end %>
+                <% end %>
+              <% elsif avatars.size > 3 %>
+                <% [avatars - [avatars.first, avatars.second]].flatten.each do |avatar| %>
+                  <%= render avatar.component do %>
+                    <%= avatar.content %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>

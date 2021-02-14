@@ -27,10 +27,12 @@ module Primer
     end
 
     class Avatar < Primer::Slot
-      attr_reader :system_arguments
-
       def initialize(**system_arguments)
         @system_arguments = system_arguments
+      end
+
+      def component
+        AvatarComponent.new(**@system_arguments)
       end
     end
 
