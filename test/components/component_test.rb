@@ -8,6 +8,11 @@ class PrimerComponentTest < Minitest::Test
   # Components with any arguments necessary to make them render
   COMPONENTS_WITH_ARGS = [
     [Primer::AvatarComponent, { alt: "github", src: "https://github.com/github.png" }],
+    [Primer::AvatarStackComponent, {}, lambda do |component|
+      component.body do
+        component.avatar(src: "https://github.com/github.png", alt: "github")
+      end
+    end],
     [Primer::BaseComponent, { tag: :div }],
     [Primer::BlankslateComponent, { title: "Foo" }],
     [Primer::BorderBoxComponent, {}, proc { |component| component.slot(:header) { "Foo" } }],

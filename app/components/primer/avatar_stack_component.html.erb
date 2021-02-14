@@ -1,0 +1,13 @@
+<%= render Primer::BaseComponent.new(**@system_arguments) do %>
+  <% if body %>
+    <%= render Primer::BaseComponent.new(**body.system_arguments) do %>
+      <% if avatars.any? %>
+        <% avatars.each do |avatar| %>
+          <%= render Primer::AvatarComponent.new(**avatar.system_arguments) do %>
+            <%= avatar.content %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
